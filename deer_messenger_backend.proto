@@ -1,0 +1,42 @@
+syntax = "proto3";
+package ru.megafon.deer_messenger_backend;
+
+message Deer {
+  int32 id = 1;
+  string name = 2;
+
+  repeated Message messages = 3;
+}
+
+message Message {
+  int32 id = 1;
+  string text = 2;
+
+  Deer sender = 3;
+  Deer receiver = 4;
+
+  repeated Message forwarded = 5;
+  int64 createdAt = 6;
+}
+
+service Messenger {
+  rpc SendMessage (SendMessageRequest) returns (SendMessageResponse);
+
+  rpc GetMessagesStream (GetMessagesStreamRequest) returns (stream GetMessagesStreamResponse);
+}
+
+message SendMessageRequest {
+  Message message = 1;
+}
+
+message SendMessageResponse {
+  Message message = 1;
+}
+
+message GetMessagesStreamRequest {
+  Message message = 1;
+}
+
+message GetMessagesStreamResponse {
+  repeated Message message = 1;
+}
