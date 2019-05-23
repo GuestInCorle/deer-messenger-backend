@@ -20,9 +20,29 @@ message Message {
 }
 
 service Messenger {
+  rpc LoginDeer (LoginDeerRequest) returns (LoginDeerResponse);
+
+  rpc GetDeersStream (GetDeersStreamRequest) returns (stream GetDeersStreamResponse);
+
   rpc SendMessage (SendMessageRequest) returns (SendMessageResponse);
 
   rpc GetMessagesStream (GetMessagesStreamRequest) returns (stream GetMessagesStreamResponse);
+}
+
+message LoginDeerRequest {
+  Deer deer = 1;
+}
+
+message LoginDeerResponse {
+  Deer deer = 1;
+}
+
+message GetDeersStreamRequest {
+  Deer deer = 1;
+}
+
+message GetDeersStreamResponse {
+  repeated Deer deer = 1;
 }
 
 message SendMessageRequest {
